@@ -1,15 +1,15 @@
 const http = require('http');
 
-const PORT = 5000;
+const PORT = 5551;
 
 const comments = [
   { id: '100', text: 'This first comment', author: 'Dmytro' },
-  { id: '200', text: 'Second first comment', author: 'Alice' },
-  { id: '300', text: 'Last first comment', author: 'Bob' },
+  { id: '254', text: 'Second first comment', author: 'Alice' },
+  { id: '398', text: 'Last first comment', author: 'Bob' },
 ];
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/http') {
+  if (req.url === '/html') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     res.write('<html><body><div>');
@@ -28,11 +28,18 @@ const server = http.createServer((req, res) => {
     return res.end(JSON.stringify(comments));
   }
 
+  // Обработка несуществующих URL
   res.statusCode = 404;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Not Found');
+  res.setHeader('Content-Type', 'text/html');
+  res.end('<h1>Page not found!</h1>');
 });
 
+// Обработка ошибок
+server.on('error', (error) => {
+  console.error('Server error:', error);
+});
+
+// Запуск сервера
 server.listen(PORT, () => {
   console.log(`Server was launched on port ${PORT}`);
 });
