@@ -21,6 +21,16 @@ function getComments(req, res) {
   return res.end(JSON.stringify(comments));
 }
 
+function postComment(req, res) {
+  let commentJSON = '';
+  req.on('data', (chunk) => (commentJSON += chunk));
+  req.on('end', () => {
+    comments.push(JSON.parse(commentJSON));
+    res.statusCode = 200;
+    res.end('Comment data was received');
+  });
+}
+
 function handleNotFound(req, res) {
   res.statusCode = 404;
   res.setHeader('Content-Type', 'text/html');
@@ -31,5 +41,6 @@ module.exports = {
   getHTML,
   getText,
   getComments,
+  postComment,
   handleNotFound,
 };
