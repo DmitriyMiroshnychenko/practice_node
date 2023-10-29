@@ -53,8 +53,7 @@ function postComment(req, res) {
     });
   } else {
     res.statusCode = 400;
-    res.end;
-    ('Data must be in the JSON format');
+    res.end('Data must be in the JSON format');
   }
 }
 
