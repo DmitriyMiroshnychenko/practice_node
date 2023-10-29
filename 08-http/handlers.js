@@ -1,5 +1,7 @@
 const comments = require('./data');
 
+function getHome(req, res) {}
+
 function getHTML(req, res) {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html');
@@ -55,4 +57,5 @@ module.exports = {
   getComments,
   postComment,
   handleNotFound,
+  getHome,
 };
