@@ -1,6 +1,19 @@
+const fs = require('fs');
 const comments = require('./data');
 
-function getHome(req, res) {}
+function getHome(req, res) {
+  fs.readFile('./files/comment-form.html', (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('Server error while loading HTML file');
+    } else {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html');
+      res.end(data);
+    }
+  });
+}
 
 function getHTML(req, res) {
   res.statusCode = 200;
