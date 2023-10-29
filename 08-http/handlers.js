@@ -52,7 +52,10 @@ function postComment(req, res) {
         const comment = qs.parse(body);
         comments.push(comment);
         res.statusCode = 200;
-        res.end('Comment data was received');
+        res.setHeader('Content-Type', 'text/html');
+        res.write('<h1>Comment data was received</h1>');
+        res.write('<a href="/">Submit one more comment</a>');
+        res.end();
         // console.log('Request Method:', req.method);
         // console.log('Request Headers:', req.headers);
         // console.log('Request Body:', body);
