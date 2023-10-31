@@ -1,13 +1,16 @@
 import fs from 'fs';
 
-const fileName = './files/fifth.txt';
-const copiedFileName = './files/fifth-copy.txt';
+const sourceDir = './files';
+const destinationDir = './copied-files';
 
-const readStream = fs.createReadStream(fileName);
-const writeStream = fs.createWriteStream(copiedFileName);
+if (!fs.existsSync(sourceDir)) {
+  console.warn(`Sourse dir ${sourceDir} doesnt exist!`);
+  console.log('Exiting...');
+  process.exit(0);
+}
 
-readStream.pipe(writeStream);
-
-readStream.on('end', () => console.log('Read stream ended'));
-writeStream.on('close', () => console.log('Write stream ended'));
-writeStream.on('finish', () => console.log('File was copied'));
+if (fs.existsSync(destinationDir)) {
+  fs.rmdirSync(destinationDir);
+  console.log('Destination dir removed');
+}
+fs.mkdirSync(destinationDir);
