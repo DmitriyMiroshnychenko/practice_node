@@ -8,13 +8,21 @@ const app = express();
 
 app.use(morgan('tiny'));
 
-app.use((req, res, next) => {
-  let data = '';
-  req.on('data', (chunk) => (data += chunk));
-  req.on('end', () => console.log(JSON.parse(data)));
-  next();
-});
+app.use(express.json());
 
-app.use((req, res) => res.send('This is express server'));
+// app.use((req, res, next) => {
+//   let data = '';
+//   req.on('data', (chunk) => (data += chunk));
+//   req.on('end', () => {
+//     const parsedJson = JSON.parse(data);
+//     req.body = parsedJson;
+//     next();
+//   });
+// });
+
+app.use((req, res) => {
+  console.log(req.body);
+  return res.send('This is express server');
+});
 
 app.listen(5000, () => console.log('Server is listening at port 5000'));
