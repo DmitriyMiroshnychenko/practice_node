@@ -1,12 +1,19 @@
 import express from 'express';
+import morgan from 'morgan';
 
 const app = express();
 
-const logger = (req, res, next) => {
-  console.log(req.method, req.path);
+// app.use(morgan('combined'));
+// app.use(morgan('short'));
+
+app.use(morgan('tiny'));
+
+app.use((req, res, next) => {
+  let data = '';
+  req.on('data', (chunk) => (data += chunk));
+  req.on('end', () => console.log(JSON.parse(data)));
   next();
-};
-app.use(logger);
+});
 
 app.use((req, res) => res.send('This is express server'));
 
