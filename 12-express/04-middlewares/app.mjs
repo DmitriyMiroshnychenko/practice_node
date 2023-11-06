@@ -7,8 +7,11 @@ const app = express();
 // app.use(morgan('combined'));
 // app.use(morgan('short'));
 
+//Logs info about request
 app.use(morgan('tiny')); //logging info connection to console
+//converts JSON to JS Object in POST, PUT, PATCH request
 app.use(express.json()); //converting JSON in object javascript if have req JSON and writting req.body
+//converts form data to JS Object in POST, PUT, PUTCH request
 app.use(express.urlencoded({ extended: true })); //have access to req.body, will use an external qs module to perform the form to object conversion javascript
 
 // app.use((req, res, next) => {
