@@ -1,29 +1,29 @@
 import express from 'express';
 import morgan from 'morgan';
-import qs from 'querystring';
+// import qs from 'querystring';
 
 const app = express();
 
 // app.use(morgan('combined'));
 // app.use(morgan('short'));
 
-app.use(morgan('tiny'));
+app.use(morgan('tiny')); //logging info connection to console
+app.use(express.json()); //converting JSON in object javascript if have req JSON and writting req.body
+app.use(express.urlencoded({ extended: true })); //have access to req.body, will use an external qs module to perform the form to object conversion javascript
 
-app.use(express.json());
-
-app.use((req, res, next) => {
-  if (req.headers['content-type'] === 'application/x-www-form-urlencoded') {
-    let data = '';
-    req.on('data', (chunk) => (data += chunk.toString()));
-    req.on('end', () => {
-      const parsedFormData = qs.parse(data);
-      req.body = parsedFormData;
-      next();
-    });
-  } else {
-    next();
-  }
-});
+// app.use((req, res, next) => {
+//   if (req.headers['content-type'] === 'application/x-www-form-urlencoded') {
+//     let data = '';
+//     req.on('data', (chunk) => (data += chunk.toString()));
+//     req.on('end', () => {
+//       const parsedFormData = qs.parse(data);
+//       req.body = parsedFormData;
+//       next();
+//     });
+//   } else {
+//     next();
+//   }
+// });
 
 // app.use((req, res, next) => {
 //   let data = '';
